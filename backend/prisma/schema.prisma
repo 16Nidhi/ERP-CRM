@@ -9,3 +9,171 @@ generator client {
 datasource db {
   provider = "mysql"
 }
+enum UserRole {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  PARTIAL
+  FAILED
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  UPI
+  BANK_TRANSFER
+}
+
+model User {
+  id           Int         @id @default(autoincrement())
+  name         String
+  email        String      @unique
+  password     String
+  role         UserRole    @default(EMPLOYEE)
+  status       UserStatus  @default(ACTIVE)
+
+  departmentId Int?
+  department   Department? @relation(fields: [departmentId], references: [id])
+
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  orders       Order[]
+
+  @@index([departmentId])
+}
+
+model Department {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+
+  users       User[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+
+  products    Product[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id          Int           @id @default(autoincrement())
+  name        String
+  sku         String        @unique
+  description String?
+  price       Decimal       @db.Decimal(10, 2)
+  stock       Int           @default(0)
+  status      ProductStatus @default(ACTIVE)
+
+  categoryId  Int?
+  category    Category?     @relation(fields: [categoryId], references: [id])
+
+  orderItems  OrderItem[]
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([categoryId])
+}
+
+model Customer {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String?  @unique
+  phone       String?
+  address     String?
+
+  orders      Order[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Supplier {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String?
+  phone       String?
+  address     String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id            Int            @id @default(autoincrement())
+  orderNumber   String         @unique
+
+  customerId    Int
+  customer      Customer       @relation(fields: [customerId], references: [id])
+
+  createdById   Int
+  createdBy     User           @relation(fields: [createdById], references: [id])
+
+  status        OrderStatus    @default(PENDING)
+
+  totalAmount   Decimal        @db.Decimal(10, 2)
+
+  paymentStatus PaymentStatus  @default(PENDING)
+  paymentMethod PaymentMethod?
+
+  items         OrderItem[]
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([customerId])
+  @@index([createdById])
+  @@index([status])
+}
+
+model OrderItem {
+  id          Int      @id @default(autoincrement())
+
+  orderId     Int
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId   Int
+  product     Product  @relation(fields: [productId], references: [id])
+
+  quantity    Int
+  price       Decimal  @db.Decimal(10, 2)
+  subtotal    Decimal  @db.Decimal(10, 2)
+
+  createdAt   DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+}
