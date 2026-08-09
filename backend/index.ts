@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 import authRoutes from './src/modules/auth/auth.routes';
 import { HttpError } from './src/errors/httpError';
 import challanRoutes from './src/modules/challans/challan.routes';
@@ -9,6 +10,11 @@ import prisma from './src/lib/prisma';
 
 const app = express();
 const port = Number(process.env.PORT) || 4000;
+
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  credentials: true,
+}));
 
 app.use(express.json());
 

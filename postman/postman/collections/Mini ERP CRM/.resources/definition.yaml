@@ -1,0 +1,12 @@
+$kind: collection
+name: Mini ERP CRM
+variables:
+  - key: json_web_token_021k
+    secret: true
+    disabled: false
+  - key: supabase_service_role_api_key_0b1p
+    secret: true
+    disabled: false
+  - key: json_web_token_0b1p
+    secret: true
+    disabled: false
