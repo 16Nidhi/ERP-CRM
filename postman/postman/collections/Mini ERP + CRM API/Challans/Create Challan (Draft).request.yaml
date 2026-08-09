@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/challans"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: text
+  content: |-
+    {
+      "customerId": "{{customerId}}",
+      "items": [
+        {
+          "productId": "{{productId}}",
+          "quantity": 5
+        }
+      ]
+    }
+order: 2000

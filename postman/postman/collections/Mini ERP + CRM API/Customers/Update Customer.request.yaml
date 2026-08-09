@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/customers/{{customerId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: text
+  content: |-
+    {
+      "status": "ACTIVE",
+      "notes": "Converted to active customer"
+    }
+order: 4000

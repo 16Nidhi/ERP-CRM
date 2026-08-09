@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/products/{{productId}}/stock-movements"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: text
+  content: |-
+    {
+      "type": "IN",
+      "quantity": 20,
+      "reason": "New stock received"
+    }
+order: 5000

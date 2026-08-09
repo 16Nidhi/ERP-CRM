@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/customers"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Acme Traders",
+      "mobile": "9876543210",
+      "email": "contact@acme.com",
+      "businessName": "Acme Traders Pvt Ltd",
+      "gstNumber": "22ABCDE1234F1Z5",
+      "customerType": "WHOLESALE",
+      "address": "Andheri East, Mumbai",
+      "status": "LEAD",
+      "notes": "Converted to active customer"
+    }
+order: 2000

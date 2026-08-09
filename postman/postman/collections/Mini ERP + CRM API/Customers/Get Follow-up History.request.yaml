@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/customers/{{customerId}}/follow-ups"
+method: GET
+headers:
+  Authorization: Bearer {{token}}
+order: 6000

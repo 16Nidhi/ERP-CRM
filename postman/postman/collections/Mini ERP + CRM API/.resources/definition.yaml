@@ -1,0 +1,19 @@
+$kind: collection
+name: Mini ERP + CRM API
+description: REST API collection for the Mini ERP + CRM Operations Portal. Covers Auth, Customer CRM, Product/Inventory, and Sales Challan modules.
+variables:
+  - key: baseUrl
+    value: http://localhost:4000/api
+    disabled: false
+  - key: token
+    secret: true
+    disabled: false
+  - key: customerId
+    value: ""
+    disabled: false
+  - key: productId
+    value: ""
+    disabled: false
+  - key: challanId
+    value: ""
+    disabled: false

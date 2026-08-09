@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/customers?page=1&limit=10&search="
+method: GET
+headers:
+  Authorization: Bearer {{token}}
+queryParams:
+  page: "1"
+  limit: "10"
+  search: ""
+order: 1000

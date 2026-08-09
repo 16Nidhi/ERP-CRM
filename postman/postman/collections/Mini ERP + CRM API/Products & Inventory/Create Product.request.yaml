@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/products"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: text
+  content: |-
+    {
+      "name": "Premium Basmati Rice",
+      "sku": "RICE-BAS-001",
+      "category": "Rice",
+      "unitPrice": 120,
+      "currentStock": 50,
+      "minStockAlert": 10,
+      "location": "Warehouse A"
+    }
+order: 2000
