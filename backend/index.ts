@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import authRoutes from './src/modules/auth/auth.routes';
 import { HttpError } from './src/errors/httpError';
+import challanRoutes from './src/modules/challans/challan.routes';
 import customerRoutes from './src/modules/customers/customer.routes';
 import productRoutes from './src/modules/products/product.routes';
 import prisma from './src/lib/prisma';
@@ -41,6 +42,7 @@ app.get('/api/test-db', async (_request, response, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/challans', challanRoutes);
 
 app.use((_request, _response, next) => {
   next(new HttpError(404, 'Route not found'));
