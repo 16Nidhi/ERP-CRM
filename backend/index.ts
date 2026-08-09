@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import authRoutes from './src/modules/auth/auth.routes';
 import { HttpError } from './src/errors/httpError';
 import customerRoutes from './src/modules/customers/customer.routes';
+import productRoutes from './src/modules/products/product.routes';
 import prisma from './src/lib/prisma';
 
 const app = express();
@@ -39,6 +40,7 @@ app.get('/api/test-db', async (_request, response, next) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/customers', customerRoutes);
+app.use('/api/products', productRoutes);
 
 app.use((_request, _response, next) => {
   next(new HttpError(404, 'Route not found'));
